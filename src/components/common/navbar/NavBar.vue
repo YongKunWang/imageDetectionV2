@@ -2,13 +2,21 @@
   <div class="nav-bar">
     <div class="user-component"><slot name="user-slot"></slot></div>
     <div class="date-component"><slot name="date-slot"></slot></div>
-    <div class="bar-component"><slot name="bar-slot"></slot></div>
+    <div class="bar-component" :activePath="activePath"><slot name="bar-slot"></slot></div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'NavBar'
+  name: 'NavBar',
+  data() {
+    return {
+      activeName: 'detect'
+    }
+  },
+  created() {
+    this.activePath = window.sessionStorage.getItem('activePath')
+  }
 }
 </script>
 

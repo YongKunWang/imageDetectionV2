@@ -1,5 +1,5 @@
 <template>
-  <el-tabs v-model="activeName" @tab-click="handleClick">
+  <el-tabs v-model="activePath" @tab-click="handleClick">
     <el-tab-pane label="面板管理" name="panel"></el-tab-pane>
     <el-tab-pane label="实时检测" name="detect"></el-tab-pane>
     <el-tab-pane label="历史查询" name="query"></el-tab-pane>
@@ -11,15 +11,19 @@ export default {
   name: 'BarComponent',
   data() {
     return {
-      activeName: 'detect'
+      activePath: 'detect'
     }
   },
   methods: {
     handleClick(tab, event) {
-      // console.log(tab, event)
-      // console.log(tab.name)
       this.$router.push('/' + tab.name)
+      window.sessionStorage.setItem('activePath', tab.name)
+      this.activePath = tab.name
     }
+  },
+  created() {
+    this.activePath = window.sessionStorage.getItem('activePath')
+    // console.log(this.activePath)
   }
 }
 </script>
