@@ -1,3 +1,6 @@
+<!--
+  此组件使用了绝对定位
+-->
 <template>
   <el-form
     ref="loginFormRef"
