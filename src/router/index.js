@@ -9,6 +9,9 @@ const Query = () => import('views/query/Query')
 
 const MainQuery = () => import('views/query/MainQuery')
 
+const Statistics = () => import('views/statistics/Statistics')
+const MainStatistics = () => import('views/statistics/MainStatistics')
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -26,6 +29,13 @@ const routes = [
         component: Query,
         children: [
           { path: '', component: MainQuery }
+        ]
+      },
+      {
+        path: '/statistics/:id',
+        component: Statistics,
+        children: [
+          { path: '', component: MainStatistics }
         ]
       }
     ]

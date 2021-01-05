@@ -1,12 +1,9 @@
-<!--
-  1. 添加几个按钮 前进 后退 暂停
--->
 <template>
   <div>
     <!-- 面包屑导航区域 -->
     <el-breadcrumb separator-class="el-icon-arrow-right">
       <el-breadcrumb-item>面板管理</el-breadcrumb-item>
-      <el-breadcrumb-item>历史查询</el-breadcrumb-item>
+      <el-breadcrumb-item>信息统计</el-breadcrumb-item>
       <el-breadcrumb-item>{{ $route.params.id }}</el-breadcrumb-item>
     </el-breadcrumb>
     <!-- 卡片视图区域 -->
@@ -26,29 +23,24 @@
             @change="chooseRangeTime"
           >
           </el-date-picker>
-          <!-- <el-button icon="el-icon-search"></el-button> -->
-        </el-col>
-        <el-col :span="4">
-          <el-button type="primary" :disabled="buttonDis" @click="originQuery">原图查询</el-button>
-        </el-col>
-        <el-col :span="4">
-          <el-button type="primary" :disabled="buttonDis" @click="detectQuery">检测查询</el-button>
+          <el-button icon="el-icon-search" :disabled="buttonDis" @click="getData"></el-button>
         </el-col>
       </el-row>
       <!-- 页面切换 -->
-      <div class="swiper-view">
-        <swiper :data="queryData"></swiper>
+      <div class="statistics-view">
+        <analyse></analyse>
       </div>
     </el-card>
   </div>
 </template>
 
 <script>
-import { originQuery, detectQuery } from 'common/query'
+import { historyTableData } from 'common/Statistics.js'
+import Analyse from 'views/statistics/Analyse'
+// import * as echarts from 'echarts'
 
-import Swiper from 'views/query/Swiper'
 export default {
-  name: 'MainQuery',
+  name: 'MainStatistics',
   data() {
     return {
       pickerOptions: {
@@ -84,20 +76,17 @@ export default {
       },
       rangeTime: '',
       buttonDis: '',
-      queryData: ''
+      tableData: ''
     }
   },
   components: {
-    Swiper
+    Analyse
   },
-  computed: {},
-  watch: {},
   methods: {
     // 只有选择了日期，后续的按键才能够起作用的
     chooseRangeTime() {
       if (this.rangeTime == null) {
         this.buttonDis = true
-        this.queryData = ''
         return
       }
       // console.log(this.rangeTime == null)
@@ -106,32 +95,12 @@ export default {
       if (this.rangeTime.length === 2) {
         this.buttonDis = false
       }
-      this.queryData = ''
     },
-    // 查询相应的原始图片！
-    // 依靠2个参数：
-    // 1. $route.param.id
-    // 2. rangeTime
-    originQuery() {
-      console.log(this.$route.params.id, '原始图片')
-      this.queryData = originQuery
-    },
-    // 查询检测后的图片
-    // 依靠2个参数：
-    // 1. $route.param.id
-    // 2. rangeTime
-    detectQuery() {
-      console.log(this.$route.params.id, '检测后的图片')
-      this.queryData = detectQuery
+    getData() {
+      console.log('按键开始了...')
+      this.tableData = historyTableData
     }
-  },
-  created() {
-    // console.log('创建了...')
-  },
-  beforeDestroy() {
-    // console.log('即将销毁...')
-  },
-  mounted() {}
+  }
 }
 </script>
 
@@ -145,7 +114,7 @@ export default {
 /deep/ .el-breadcrumb__item:last-child .el-breadcrumb__inner {
   color: #fff;
 }
-.swiper-view {
+.statistics-view {
   margin-top: 15px;
 }
 </style>

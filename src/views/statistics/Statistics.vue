@@ -12,18 +12,17 @@
 <script>
 import AsideMenu from 'components/common/asidemenu/AsideMenu'
 
-import { menulistQuery } from 'common/mymenulist.js'
+import { menulistStatistics } from 'common/mymenulist.js'
 export default {
-  name: 'MyMenu',
+  name: 'Statistics',
   data() {
     return {
-      mymenulist: menulistQuery
+      mymenulist: menulistStatistics
     }
   },
   components: {
     AsideMenu
-  },
-  mounted() {}
+  }
 }
 </script>
 
