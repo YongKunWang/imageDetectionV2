@@ -6,18 +6,28 @@ const Home = () => import('views/home/Home')
 
 const Detect = () => import('views/detect/Detect')
 const Query = () => import('views/query/Query')
+
+const MainQuery = () => import('views/query/MainQuery')
+
 Vue.use(VueRouter)
 
 const routes = [
   { path: '/', redirect: '/login' },
   { path: '/login', component: Login },
+
   {
     path: '/home',
     component: Home,
     redirect: '/detect',
     children: [
       { path: '/detect', component: Detect },
-      { path: '/query', component: Query }
+      {
+        path: '/query/:id',
+        component: Query,
+        children: [
+          { path: '', component: MainQuery }
+        ]
+      }
     ]
   }
 ]

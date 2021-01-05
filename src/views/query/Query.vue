@@ -1,22 +1,29 @@
 <template>
   <el-container>
     <el-aside width="250px">
-      <my-menu></my-menu>
+      <aside-menu :menulist="mymenulist"></aside-menu>
     </el-aside>
-    <el-main> </el-main>
+    <el-main>
+      <router-view></router-view>
+    </el-main>
   </el-container>
 </template>
 
 <script>
-import MyMenu from 'components/common/mymenu/MyMenu'
+import AsideMenu from 'components/common/asidemenu/AsideMenu'
+
+import { menulist } from 'common/mymenulist.js'
 export default {
-  name: 'Query',
+  name: 'MyMenu',
   data() {
-    return {}
+    return {
+      mymenulist: menulist
+    }
   },
   components: {
-    MyMenu
-  }
+    AsideMenu
+  },
+  mounted() {}
 }
 </script>
 
@@ -26,7 +33,7 @@ export default {
   // background-color: red;
   .el-aside {
     height: 100%;
-    // background-color: #00378e;
+    background-color: #00378e;
   }
 }
 </style>

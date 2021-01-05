@@ -2,8 +2,8 @@
   <el-tabs v-model="activePath" @tab-click="handleClick">
     <el-tab-pane label="面板管理" name="panel"></el-tab-pane>
     <el-tab-pane label="实时检测" name="detect"></el-tab-pane>
-    <el-tab-pane label="历史查询" name="query"></el-tab-pane>
-    <el-tab-pane label="信息统计" name="statistics"></el-tab-pane>
+    <el-tab-pane label="历史查询" name="query/main"></el-tab-pane>
+    <el-tab-pane label="信息统计" name="statistics/main"></el-tab-pane>
   </el-tabs>
 </template>
 <script>
@@ -23,7 +23,9 @@ export default {
   },
   created() {
     this.activePath = window.sessionStorage.getItem('activePath')
-    // console.log(this.activePath)
+    if (this.activePath == null) {
+      this.activePath = 'detect'
+    }
   }
 }
 </script>
